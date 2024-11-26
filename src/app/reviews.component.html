@@ -18,4 +18,18 @@
       }
     </div> <!-- col -->
   </div> <!-- row -->
+  <div class="row">
+    <div class="col-sm-4">
+      <button class="btn btn-danger"
+              (click)="previousPage()">Previous</button>
+    </div>
+    <div class="col-sm-4 text-center align-self-center text-white">
+      Showing page {{ this.page }}
+      of {{ this.dataService.getLastPageNumber() }}
+    </div>
+    <div class="col-sm-4 text-end">
+      <button class="btn btn-danger"
+              (click)="nextPage()">Next</button>
+    </div>
+  </div>
 </div> <!-- container -->

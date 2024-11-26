@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ReviewsComponent } from './reviews.component';
+import jsonData from '../assets/reviews.json';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,7 @@ import { ReviewsComponent } from './reviews.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'CamReview';
+  ngOnInit() {
+    console.log(jsonData);
+  }
 }
