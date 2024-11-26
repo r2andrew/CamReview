@@ -1,23 +1,25 @@
-<div class="container" style="margin-top:70px">
-  <div class="row">
-    <div class="col-sm-12">
-      @for(review of reviews_list;
-        track review.title) {
-        <div class="card text-white bg-danger mb-3">
-          <div class="card-header">
-            {{ review.title }}
-          </div>
-          <div class="card-body">
-            The body text is:
-            {{ review.body }} <br>
-            The image link is:
-            {{ review.filePath}}
-          </div>
-          <div class="card-footer">
-            Rating: {{ review.rating }}
-          </div>
+<div class="container" style="margin-top: 70px">
+  @for ( review of reviews_list; track review.title ) {
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="display-1">
+          {{ review.title }}
         </div>
-      }
-    </div> <!-- col -->
-  </div> <!-- row -->
-</div> <!-- container -->
+        <span *ngFor="let star of [].constructor(review.rating)">
+          <img src="images/star.png" style="width:30px; height:30px">
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        The body text is:
+        {{ review.body }}
+      </div>
+      <div class="col sm-6 text-center">
+        The image link is:
+        {{ review.filePath}}
+      </div>
+    </div>
+  }
+</div>

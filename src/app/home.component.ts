@@ -8,7 +8,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  ngOnInit() {
-    console.log('got here')
-  }
 }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { DataService } from './data.service';
+import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'reviews',
   standalone: true,
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, NgForOf],
   providers: [DataService],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'

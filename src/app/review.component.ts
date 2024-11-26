@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
 import { DataService } from './data.service';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'review',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   providers: [DataService],
   templateUrl: './review.component.html',
-  styleUrl: './review.component.css'
+  styleUrls: ['./review.component.css']
 })
 export class ReviewComponent {
   reviews_list: any;

@@ -16,7 +16,9 @@
             {{ review.filePath}}
           </div>
           <div class="card-footer">
-            Rating: {{ review.rating }}
+            <span *ngFor="let star of [].constructor(review.rating)">
+              <img src="images/star.png" style="width:30px; height:30px">
+            </span>
           </div>
         </div>
       }
