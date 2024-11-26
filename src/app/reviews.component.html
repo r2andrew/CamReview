@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      @for(review of reviews_list;
+        track review.title) {
+        <div class="card text-white bg-danger mb-3">
+          <div class="card-header">
+            {{ review.title }}
+          </div>
+          <div class="card-body">
+            The body text is:
+            {{ review.body }}
+          </div>
+          <div class="card-footer">
+            Rating: {{ review.rating }}
+          </div>
+        </div>
+      }
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container -->
