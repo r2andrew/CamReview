@@ -6,9 +6,16 @@ export class DataService {
     let pageEnd = pageStart + this.pageSize;
     return jsonData.slice(pageStart, pageEnd);
   }
-
+  getReview(id: any) {
+    let dataToReturn: any[] = [];
+    jsonData.forEach( function(review) {
+      if (review['id'] == id) {
+        dataToReturn.push( review );
+      }
+    })
+    return dataToReturn;
+  }
   getLastPageNumber() {
     return Math.ceil( jsonData.length / this.pageSize );
   }
-
 }
