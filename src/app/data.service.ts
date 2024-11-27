@@ -18,4 +18,16 @@ export class DataService {
   getLastPageNumber() {
     return Math.ceil( jsonData.length / this.pageSize );
   }
+
+  postReview(id: any, review: any) {
+    let newReview = {
+      'id': Math.random().toString(),
+      'username' : review.username,
+      'title' : review.title,
+      'body' : review.body,
+      'rating' : review.rating,
+      'filePath' : review.file
+    };
+    jsonData.push( newReview );
+  }
 }
