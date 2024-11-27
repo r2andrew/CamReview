@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { DataService } from './data.service';
 import { CommonModule } from '@angular/common';
 import { WebService } from './web.service';
 import { ModalService } from './modal.service';
@@ -14,7 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   selector: 'review',
   standalone: true,
   imports: [CommonModule, ModalComponent, FormsModule, ReactiveFormsModule],
-  providers: [DataService, WebService, ModalService],
+  providers: [WebService, ModalService],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.css']
 })
@@ -22,8 +21,7 @@ export class ReviewComponent {
   reviews_list: any;
   editForm: any;
 
-  constructor( public dataService: DataService,
-               private route: ActivatedRoute,
+  constructor( private route: ActivatedRoute,
                private webService: WebService,
                private router: Router,
                public modalService: ModalService,

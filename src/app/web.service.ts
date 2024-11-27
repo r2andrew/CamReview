@@ -4,12 +4,15 @@ import { Injectable } from "@angular/core";
 export class WebService{
   pageSize: number = 3;
   constructor(private http: HttpClient) { }
-  getReviews(page: number) {
+  getReviews(page_num: number) {
+    let page_start = (this.pageSize * (page_num - 1))
+
     return this.http.get<any>(
       "https://prod-23.spaincentral.logic.azure.com/workflows/76e4836b5f524055bbadd68e95f9111d/triggers/" +
       "When_a_HTTP_request_is_received/paths/invoke/v1/reviews" +
       "?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun" +
-      "&sv=1.0&sig=nZ0SSE4OTZ0YD2tBKkzUNVOz6_-sIjy3cwfpjVPljz0");
+      "&sv=1.0&sig=nZ0SSE4OTZ0YD2tBKkzUNVOz6_-sIjy3cwfpjVPljz0&page_start=" +
+      page_start + '&limit=' + this.pageSize);
   }
   getReview(id: any) {
     return this.http.get<any>(

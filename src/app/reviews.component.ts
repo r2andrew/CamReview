@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
-import { DataService } from './data.service';
 import { NgForOf, NgClass, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -12,7 +11,7 @@ import { WebService } from './web.service';
   selector: 'reviews',
   standalone: true,
   imports: [RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule],
-  providers: [DataService, WebService],
+  providers: [WebService],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
 })
@@ -22,8 +21,7 @@ export class ReviewsComponent {
   reviewForm: any;
   file: File | null = null;
 
-  constructor(public dataService: DataService,
-              private formBuilder: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private webService: WebService) {}
 
@@ -95,13 +93,14 @@ export class ReviewsComponent {
     }
   }
   nextPage() {
-    if (this.page < this.dataService.getLastPageNumber()) {
+    // TODO: cant go beyond data
+    // if (this.page < this.dataService.getLastPageNumber()) {
       this.page = this.page + 1
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
         .subscribe((response: any) => {
           this.reviews_list = response;
         })
-    }
+    // }
   }
 }
