@@ -34,23 +34,18 @@ export class ReviewComponent {
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
         this.reviews_list = [response];
+
+        this.editForm = this.formBuilder.group( {
+          title:[this.reviews_list[0].title, Validators.required],
+          body: [this.reviews_list[0].body, Validators.required],
+          rating: this.reviews_list[0].rating,
+        })
       });
-
-    this.editForm = this.formBuilder.group( {
-      title:['', Validators.required],
-      body: ['', Validators.required],
-      rating: 5,
-    })
   }
 
-  isUntouched() {
-    return this.editForm.controls.title.pristine ||
-      this.editForm.controls.body.pristine
-  }
   isIncomplete() {
     return this.isInvalid('title') ||
-      this.isInvalid('body') ||
-      this.isUntouched();
+      this.isInvalid('body')
   }
 
   isInvalid(control: any) {
