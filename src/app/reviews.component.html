@@ -86,9 +86,10 @@
         </div>
         <div class="form-group">
           <label for="file">
-            Upload a file</label> <!-- TODO: Change to file input -->
-          <textarea name="file" id="file" class="form-control" formControlName="file"
-                    [ngClass]="{ 'error' : isInvalid('file') }"></textarea>
+            Upload a file</label>
+          <input type ="file" name="file" id="file" class="form-control" formControlName="file"
+                    [ngClass]="{ 'error' : isInvalid('file') }"
+                    (change)="onChange($event)">
         </div>
         <span *ngIf="isIncomplete()">
           You must complete all fields

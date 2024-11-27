@@ -4,13 +4,15 @@ import { DataService } from './data.service';
 import { NgForOf, NgClass, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
+import { WebService } from './web.service';
+
 
 
 @Component({
   selector: 'reviews',
   standalone: true,
   imports: [RouterOutlet, RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule],
-  providers: [DataService],
+  providers: [DataService, WebService],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
 })
@@ -18,16 +20,30 @@ export class ReviewsComponent {
   reviews_list: any;
   page: number = 1
   reviewForm: any;
+  file: File | null = null;
 
   constructor(public dataService: DataService,
               private formBuilder: FormBuilder,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private webService: WebService) {}
+
+  // pull file on selection
+  onChange(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.file = file;
+    }
+  }
 
   onSubmit() {
-    this.dataService.postReview(
+    this.webService.postReview(
       this.route.snapshot.paramMap.get('id'),
-      this.reviewForm.value);
-    this.reviewForm.reset();
+      this.reviewForm.value,
+      this.file)
+      .subscribe( (response) => {
+        console.log(response)
+        this.reviewForm.reset();
+      });
   }
 
   isUntouched() {
@@ -53,7 +69,12 @@ export class ReviewsComponent {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']);
     }
-    this.reviews_list = this.dataService.getReviews(this.page);
+    // this.reviews_list = this.dataService.getReviews(this.page);
+    this.webService.getReviews(this.page)
+      .subscribe((response) => {
+        this.reviews_list = response;
+      })
+
 
     this.reviewForm = this.formBuilder.group( {
       username: ['', Validators.required],
@@ -68,14 +89,20 @@ export class ReviewsComponent {
     if (this.page > 1) {
       this.page = this.page - 1
       sessionStorage['page'] = this.page;
-      this.reviews_list = this.dataService.getReviews(this.page);
+      this.webService.getReviews(this.page)
+        .subscribe((response: any) => {
+          this.reviews_list = response;
+        })
     }
   }
   nextPage() {
     if (this.page < this.dataService.getLastPageNumber()) {
       this.page = this.page + 1
       sessionStorage['page'] = this.page;
-      this.reviews_list = this.dataService.getReviews(this.page);
+      this.webService.getReviews(this.page)
+        .subscribe((response: any) => {
+          this.reviews_list = response;
+        })
     }
   }
 }
