@@ -20,6 +20,7 @@ export class ReviewsComponent {
   page: number = 1
   reviewForm: any;
   file: File | null = null;
+  totalPages: number = 1;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -68,11 +69,10 @@ export class ReviewsComponent {
     }
     this.webService.getReviews(this.page)
       .subscribe((response) => {
-        this.reviews_list = response;
+        this.reviews_list = response['reviews'];
+        this.totalPages = response['totalPages']
       })
 
-
-    // TODO: default values are existing ones
     this.reviewForm = this.formBuilder.group( {
       username: ['', Validators.required],
       title:['', Validators.required],
@@ -88,19 +88,21 @@ export class ReviewsComponent {
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
         .subscribe((response: any) => {
-          this.reviews_list = response;
+          this.reviews_list = response['reviews'];
+          this.totalPages = response['totalPages']
         })
     }
   }
   nextPage() {
     // TODO: cant go beyond data
-    // if (this.page < this.dataService.getLastPageNumber()) {
+    if (this.page < this.totalPages) {
       this.page = this.page + 1
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
         .subscribe((response: any) => {
-          this.reviews_list = response;
+          this.reviews_list = response['reviews'];
+          this.totalPages = response['totalPages']
         })
-    // }
+     }
   }
 }
