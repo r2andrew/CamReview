@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { DataService } from './data.service';
 import { NgForOf, NgClass, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { WebService } from './web.service';
 @Component({
   selector: 'reviews',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule],
+  imports: [RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule],
   providers: [DataService, WebService],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
@@ -37,7 +37,6 @@ export class ReviewsComponent {
 
   onSubmit() {
     this.webService.postReview(
-      this.route.snapshot.paramMap.get('id'),
       this.reviewForm.value,
       this.file)
       .subscribe( (response) => {

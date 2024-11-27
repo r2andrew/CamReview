@@ -5,6 +5,10 @@
       <div class="col-sm-12">
         <div class="display-1">
           {{ review.title }}
+          <button class="btn btn-danger"
+                  type="submit"
+                  (click)="onDelete()"
+                  style="margin-top: 20px">Delete</button>
         </div>
         <span *ngFor="let star of [].constructor(review.rating)">
           <img src="images/star.png" style="width:30px; height:30px">
