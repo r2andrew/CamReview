@@ -38,4 +38,16 @@ export class WebService{
       '?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun' +
       '&sv=1.0&sig=ScYEs_rJ-WNEIGuIY4zpZJ1ax_2-JFZ0LlxGekkmgGc');
   }
+
+  editReview(id: any, review:any) {
+    let putData = new FormData();
+    putData.append("title", review.title);
+    putData.append("body", review.body);
+    putData.append("rating", review.rating);
+    return this.http.put<any>(
+      'https://prod-18.spaincentral.logic.azure.com/workflows/6dce5f7f7a0d48deb21d1d44661ca61b/triggers/' +
+      'When_a_HTTP_request_is_received/paths/invoke/v1/reviews/' + id +
+      '?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun' +
+      '&sv=1.0&sig=DKCWm4CbOcnMwKmZrTylhRXRWMO7M19ol14ERb3gTgk', putData);
+  }
 }

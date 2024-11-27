@@ -68,13 +68,13 @@ export class ReviewsComponent {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']);
     }
-    // this.reviews_list = this.dataService.getReviews(this.page);
     this.webService.getReviews(this.page)
       .subscribe((response) => {
         this.reviews_list = response;
       })
 
 
+    // TODO: default values are existing ones
     this.reviewForm = this.formBuilder.group( {
       username: ['', Validators.required],
       title:['', Validators.required],
