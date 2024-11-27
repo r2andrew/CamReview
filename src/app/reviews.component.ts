@@ -37,7 +37,6 @@ export class ReviewsComponent {
 
   onSubmit() {
     this.webService.postReview(
-      this.route.snapshot.paramMap.get('id'),
       this.reviewForm.value,
       this.file)
       .subscribe( (response) => {

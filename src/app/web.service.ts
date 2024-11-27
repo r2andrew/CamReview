@@ -18,7 +18,7 @@ export class WebService{
       '?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun' +
       '&sv=1.0&sig=LhKQ7GVcaa5tAalizPfSkIBU4-JkGVCa6rHzeAaebZg');
   }
-  postReview(id: any, review: any, file: any) {
+  postReview(review: any, file: any) {
     let postData = new FormData();
     postData.append("username", review.username);
     postData.append("title", review.title);
@@ -31,6 +31,11 @@ export class WebService{
       '?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun' +
       '&sv=1.0&sig=E-yNNxalDA0z3BQfzqoN62RzVVMRWqivct1W9jXo0oc', postData);
   }
-
-
+  deleteReview(id: any) {
+    return this.http.delete<any>(
+      'https://prod-21.spaincentral.logic.azure.com/workflows/3ef516265acd4492af51ee8bec841d28/triggers/' +
+      'When_a_HTTP_request_is_received/paths/invoke/v1/reviews/' + id +
+      '?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun' +
+      '&sv=1.0&sig=ScYEs_rJ-WNEIGuIY4zpZJ1ax_2-JFZ0LlxGekkmgGc');
+  }
 }
