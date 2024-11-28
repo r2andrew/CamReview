@@ -22,8 +22,10 @@ export class ReviewsComponent {
   file: File | null = null;
   totalPages: number = 1;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
-  fakeArray: any[] = new Array(3);
+  placeholderReviews: any[] = new Array(3);
   reviews_loaded: boolean = false;
+  new_review_loading: boolean = false;
+  totalDocuments: number = 3
 
 
   constructor(private formBuilder: FormBuilder,
@@ -43,8 +45,22 @@ export class ReviewsComponent {
       this.reviewForm.value,
       this.file)
       .subscribe( (response) => {
-        console.log(response)
         this.reviewForm.reset();
+        if (this.reviews_list.length < 3) {
+          this.placeholderReviews = new Array(1)
+        } else {
+          this.placeholderReviews = new Array(0)
+        }
+        this.new_review_loading = true;
+        this.webService.getReviews(this.page)
+          .subscribe((response) => {
+            this.reviews_list = response['reviews'];
+            this.totalPages = response['totalPages'];
+            this.processIfEdited();
+            this.reviews_loaded = true;
+            this.new_review_loading = false;
+            this.placeholderReviews = new Array(3)
+          })
       });
   }
 
@@ -106,14 +122,13 @@ export class ReviewsComponent {
       this.webService.getReviews(this.page)
         .subscribe((response: any) => {
           this.reviews_list = response['reviews'];
-          this.totalPages = response['totalPages']
+          this.totalPages = response['totalPages'];
           this.processIfEdited()
           this.reviews_loaded = true;
         })
     }
   }
   nextPage() {
-    // TODO: cant go beyond data
     if (this.page < this.totalPages) {
       this.reviews_loaded = false
       this.page = this.page + 1
