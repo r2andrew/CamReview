@@ -22,10 +22,8 @@ export class ReviewsComponent {
   file: File | null = null;
   totalPages: number = 1;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
-  placeholderReviews: any[] = new Array(3);
   reviews_loaded: boolean = false;
   new_review_loading: boolean = false;
-  totalDocuments: number = 3
 
 
   constructor(private formBuilder: FormBuilder,
@@ -46,11 +44,6 @@ export class ReviewsComponent {
       this.file)
       .subscribe( (response) => {
         this.reviewForm.reset();
-        if (this.reviews_list.length < 3) {
-          this.placeholderReviews = new Array(1)
-        } else {
-          this.placeholderReviews = new Array(0)
-        }
         this.new_review_loading = true;
         this.webService.getReviews(this.page)
           .subscribe((response) => {
@@ -59,7 +52,6 @@ export class ReviewsComponent {
             this.processIfEdited();
             this.reviews_loaded = true;
             this.new_review_loading = false;
-            this.placeholderReviews = new Array(3)
           })
       });
   }

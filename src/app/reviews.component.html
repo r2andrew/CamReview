@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-12 reviewBox">
       <!-- loaded reviews -->
-      <ng-container *ngIf="reviews_loaded">
+      <ng-container *ngIf="reviews_loaded && !new_review_loading">
       @for(review of reviews_list;
         track review.title) {
         <div class="card text-white bg-danger mb-3"
@@ -35,7 +35,7 @@
       }
       </ng-container>
 
-      <!-- create placeholder reviews for loading... -->
+      <!-- if loading reviews, show loading wheel -->
       <div class="" *ngIf="(!reviews_loaded || new_review_loading)">
         <div class="cssload-speeding-wheel"></div>
       </div>
@@ -47,10 +47,10 @@
       <button class="btn btn-danger"
               (click)="previousPage()">Previous</button>
     </div>
-    <div class="col-sm-4 text-center align-self-center text-white" *ngIf="!reviews_loaded">
+    <div class="col-sm-4 text-center align-self-center text-white" *ngIf="(!reviews_loaded || new_review_loading)">
       Loading...
     </div>
-    <div class="col-sm-4 text-center align-self-center text-white" *ngIf="reviews_loaded">
+    <div class="col-sm-4 text-center align-self-center text-white" *ngIf="(reviews_loaded && !new_review_loading)">
       Showing page {{ this.page }}
       of {{ totalPages }}
     </div>
