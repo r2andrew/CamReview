@@ -5,26 +5,32 @@
       <ng-container *ngIf="reviews_loaded && !new_review_loading">
       @for(review of reviews_list;
         track review.title) {
-        <div class="card text-white bg-danger mb-3"
+        <div class="card text-black bg-white mb-3"
              style = "cursor: pointer"
              [routerLink] = "['/reviews', review.id]">
           <div class="card-header">
             <div class="row">
-              <div class ="col-sm-6">
+              <div class ="col-sm-6 fw-semibold">
                 Title: {{ review.title }}
               </div>
-              <div class ="col-sm-6">
+              <div class ="col-sm-6 text-end fw-semibold">
                 Username: {{ review.username }}
               </div>
-              <div class ="col-sm-6" *ngIf="review.edited" >
+              <div class ="col-sm-6 fst-italic" *ngIf="review.edited" >
                 Edited: {{ review.modifiedTime }}
               </div>
             </div>
           </div>
           <div class="card-body">
-            The body text is:
-            {{ review.body }} <br>
-            <img src='{{ baseBlobUrl + review.filePath }}' width='100'/>
+            <div class="row">
+              <div class ="col-sm-6">
+                The body text is:
+                {{ review.body }} <br>
+              </div>
+              <div class ="col-sm-6 text-end">
+                <img src='{{ baseBlobUrl + review.filePath }}' width='100px'/>
+              </div>
+            </div>
           </div>
           <div class="card-footer">
             <span *ngFor="let star of [].constructor(review.rating)">
