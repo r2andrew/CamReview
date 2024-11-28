@@ -14,6 +14,9 @@
         <span *ngFor="let star of [].constructor(review.rating)">
           <img src="images/star.png" style="width:30px; height:30px">
         </span>
+        <span *ngIf="review.edited" >
+          Edited: {{ review.modifiedTime }}
+        </span>
       </div>
     </div>
     <div class="row">

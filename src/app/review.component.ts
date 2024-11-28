@@ -33,12 +33,25 @@ export class ReviewComponent {
       .subscribe( (response: any) => {
         this.reviews_list = [response];
 
+        this.processIfEdited()
+        console.log(this.reviews_list)
+
         this.editForm = this.formBuilder.group( {
           title:[this.reviews_list[0].title, Validators.required],
           body: [this.reviews_list[0].body, Validators.required],
           rating: this.reviews_list[0].rating,
         })
       });
+  }
+
+  processIfEdited() {
+    for (var review= 0; review < this.reviews_list.length; review++) {
+      if (this.reviews_list[review]['createdTime'] != this.reviews_list[review]['modifiedTime']) {
+        this.reviews_list[review] = Object.assign({}, this.reviews_list[review], {edited: true})
+      } else {
+        this.reviews_list[review] = Object.assign({}, this.reviews_list[review], {edited: false})
+      }
+    }
   }
 
   isIncomplete() {

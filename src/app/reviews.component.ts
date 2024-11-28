@@ -63,6 +63,16 @@ export class ReviewsComponent {
       this.reviewForm.controls[control].touched;
   }
 
+  processIfEdited() {
+    for (var review= 0; review < this.reviews_list.length; review++) {
+      if (this.reviews_list[review]['createdTime'] != this.reviews_list[review]['modifiedTime']) {
+        this.reviews_list[review] = Object.assign({}, this.reviews_list[review], {edited: true})
+      } else {
+        this.reviews_list[review] = Object.assign({}, this.reviews_list[review], {edited: false})
+      }
+    }
+  }
+
   ngOnInit() {
     if (sessionStorage['page']) {
       this.page = Number(sessionStorage['page']);
@@ -70,7 +80,9 @@ export class ReviewsComponent {
     this.webService.getReviews(this.page)
       .subscribe((response) => {
         this.reviews_list = response['reviews'];
-        this.totalPages = response['totalPages']
+        this.totalPages = response['totalPages'];
+        this.processIfEdited();
+        console.log(this.reviews_list);
       })
 
     this.reviewForm = this.formBuilder.group( {
@@ -90,6 +102,7 @@ export class ReviewsComponent {
         .subscribe((response: any) => {
           this.reviews_list = response['reviews'];
           this.totalPages = response['totalPages']
+          this.processIfEdited()
         })
     }
   }
@@ -102,6 +115,7 @@ export class ReviewsComponent {
         .subscribe((response: any) => {
           this.reviews_list = response['reviews'];
           this.totalPages = response['totalPages']
+          this.processIfEdited()
         })
      }
   }
