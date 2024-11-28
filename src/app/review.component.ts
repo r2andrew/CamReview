@@ -21,6 +21,7 @@ export class ReviewComponent {
   reviews_list: any;
   editForm: any;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
+  review_loaded = false;
 
 
   constructor( private route: ActivatedRoute,
@@ -34,6 +35,8 @@ export class ReviewComponent {
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
         this.reviews_list = [response];
+        this.review_loaded = true;
+
 
         this.processIfEdited()
         console.log(this.reviews_list)

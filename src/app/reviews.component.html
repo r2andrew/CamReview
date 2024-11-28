@@ -1,6 +1,25 @@
 <div class="container" style="margin-top:70px">
   <div class="row">
     <div class="col-sm-12">
+      <!-- loading -->
+      <ng-container *ngIf="!reviews_loaded">
+        <div class="card text-white bg-danger mb-3" *ngFor="let a of fakeArray; let index = index" >
+          <div class="card-header">
+            <div class="row">
+              <div class ="col-sm-6">
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            Loading ...
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- loaded reviews -->
+      <ng-container *ngIf="reviews_loaded">
       @for(review of reviews_list;
         track review.title) {
         <div class="card text-white bg-danger mb-3"
@@ -31,6 +50,7 @@
           </div>
         </div>
       }
+      </ng-container>
     </div> <!-- col -->
   </div> <!-- row -->
   <div class="row">

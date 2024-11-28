@@ -1,4 +1,9 @@
 <div class="container" style="margin-top: 70px">
+
+  <ng-container *ngIf="!review_loaded">
+    Loading
+  </ng-container>
+
   @for ( review of reviews_list; track review.title ) {
 
     <div class="row">

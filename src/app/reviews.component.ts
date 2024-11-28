@@ -22,6 +22,8 @@ export class ReviewsComponent {
   file: File | null = null;
   totalPages: number = 1;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
+  fakeArray: any[] = new Array(3);
+  reviews_loaded: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -84,7 +86,7 @@ export class ReviewsComponent {
         this.reviews_list = response['reviews'];
         this.totalPages = response['totalPages'];
         this.processIfEdited();
-        console.log(this.reviews_list);
+        this.reviews_loaded = true;
       })
 
     this.reviewForm = this.formBuilder.group( {
@@ -98,6 +100,7 @@ export class ReviewsComponent {
   }
   previousPage() {
     if (this.page > 1) {
+      this.reviews_loaded = false
       this.page = this.page - 1
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
@@ -105,12 +108,14 @@ export class ReviewsComponent {
           this.reviews_list = response['reviews'];
           this.totalPages = response['totalPages']
           this.processIfEdited()
+          this.reviews_loaded = true;
         })
     }
   }
   nextPage() {
     // TODO: cant go beyond data
     if (this.page < this.totalPages) {
+      this.reviews_loaded = false
       this.page = this.page + 1
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
@@ -118,6 +123,7 @@ export class ReviewsComponent {
           this.reviews_list = response['reviews'];
           this.totalPages = response['totalPages']
           this.processIfEdited()
+          this.reviews_loaded = true;
         })
      }
   }
