@@ -22,8 +22,7 @@
           <div class="card-body">
             The body text is:
             {{ review.body }} <br>
-            The image link is:
-            {{ review.filePath}}
+            <img src='{{ baseBlobUrl + review.filePath }}' width='100'/>
           </div>
           <div class="card-footer">
             <span *ngFor="let star of [].constructor(review.rating)">

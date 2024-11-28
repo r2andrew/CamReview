@@ -21,6 +21,8 @@ export class ReviewsComponent {
   reviewForm: any;
   file: File | null = null;
   totalPages: number = 1;
+  baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
+
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,

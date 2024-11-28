@@ -20,6 +20,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class ReviewComponent {
   reviews_list: any;
   editForm: any;
+  baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
+
 
   constructor( private route: ActivatedRoute,
                private webService: WebService,
