@@ -58,7 +58,10 @@
       <button class="btn btn-danger"
               (click)="previousPage()">Previous</button>
     </div>
-    <div class="col-sm-4 text-center align-self-center text-white">
+    <div class="col-sm-4 text-center align-self-center text-white" *ngIf="!reviews_loaded">
+      Loading...
+    </div>
+    <div class="col-sm-4 text-center align-self-center text-white" *ngIf="reviews_loaded">
       Showing page {{ this.page }}
       of {{ totalPages }}
     </div>
