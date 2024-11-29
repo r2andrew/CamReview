@@ -73,6 +73,7 @@ export class ReviewComponent {
     this.webService.deleteReview(
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
+        this.modalService.close();
         this.router.navigate([''])
       });
   }

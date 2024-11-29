@@ -10,11 +10,8 @@
       <div class="col-sm-12">
         <div class="display-1">
           {{ review.title }}
-          <button class="btn btn-danger"
-                  type="submit"
-                  (click)="onDelete()"
-                  style="margin-top: 20px">Delete</button>
-          <button class="btn btn-primary me-2" (click)="modalService.open('edit-modal')">Edit</button>
+          <button class="btn btn-danger me-2" (click)="modalService.open('delete-modal')">Delete</button>
+          <button class="btn btn-danger me-2" (click)="modalService.open('edit-modal')">Edit</button>
         </div>
         <span *ngFor="let star of [].constructor(review.rating)">
           <img src="images/star.png" style="width:30px; height:30px">
@@ -76,6 +73,20 @@
                       type="submit"
                       style="margin-top: 20px">Submit</button>
             </form>
+          </div>
+        </div>
+      </div>
+    </modal>
+
+    <modal id="delete-modal" class="text-black">
+      <div class="container" style="margin-top: 30px;">
+        <div class="row" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
+          <div class="col-sm-12">
+            <h2>Are you sure?</h2>
+            <button class="btn btn-danger"
+                    type="submit"
+                    (click)="onDelete()"
+                    style="margin-top: 20px">Delete</button>
           </div>
         </div>
       </div>
