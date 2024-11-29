@@ -74,7 +74,7 @@ export class ReviewComponent {
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
         this.modalService.close();
-        this.router.navigate([''])
+        this.router.navigate(['/reviews'])
       });
   }
 
