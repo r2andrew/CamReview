@@ -84,7 +84,14 @@ export class ReviewComponent {
       this.editForm.value)
       .subscribe( (response: any) => {
         this.modalService.close()
-        this.router.navigate([''])
+        this.review_loaded = false;
+        this.webService.getReview(
+          this.route.snapshot.paramMap.get('id'))
+          .subscribe( (response: any) => {
+            this.reviews_list = [response];
+            this.review_loaded = true;
+            this.processIfEdited()
+          });
       });
   }
 }
