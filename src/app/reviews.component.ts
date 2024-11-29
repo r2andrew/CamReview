@@ -4,14 +4,15 @@ import { NgForOf, NgClass, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { WebService } from './web.service';
-
+import { ModalComponent } from './modal.component';
+import {ModalService} from './modal.service';
 
 
 @Component({
   selector: 'reviews',
   standalone: true,
-  imports: [RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule],
-  providers: [WebService],
+  imports: [RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule, ModalComponent],
+  providers: [WebService, ModalService],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
 })
@@ -28,7 +29,8 @@ export class ReviewsComponent {
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private webService: WebService) {}
+              private webService: WebService,
+              public modalService: ModalService) {}
 
   // pull file on selection
   onChange(event: any) {
@@ -43,6 +45,7 @@ export class ReviewsComponent {
       this.reviewForm.value,
       this.file)
       .subscribe( (response) => {
+        this.modalService.close();
         this.reviewForm.reset();
         this.new_review_loading = true;
         this.webService.getReviews(this.page)
