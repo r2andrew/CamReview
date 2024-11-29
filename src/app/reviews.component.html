@@ -1,7 +1,11 @@
 <div class="container" style="margin-top:70px">
   <div class="row">
     <div class="col-sm-12 reviewBox">
-      <button class="btn btn-primary me-2" (click)="modalService.open('create-modal')">Edit</button>
+      <button class="btn btn-danger me-2 w-100 p-2"
+              style="margin-top: 20px; margin-bottom: 30px"
+              (click)="modalService.open('create-modal')">
+        Submit Review
+      </button>
 
       <!-- loaded reviews -->
       <ng-container *ngIf="reviews_loaded && !new_review_loading">
@@ -50,7 +54,7 @@
 
     </div> <!-- col -->
   </div> <!-- row -->
-  <div class="row">
+  <div class="row" style="margin-top: 20px">
     <div class="col-sm-4">
       <button class="btn btn-danger"
               (click)="previousPage()">Previous</button>
