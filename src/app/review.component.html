@@ -1,8 +1,9 @@
 <div class="container" style="margin-top: 70px">
 
-  <ng-container *ngIf="!review_loaded">
-    Loading
-  </ng-container>
+  <div class="" *ngIf="(!review_loaded)">
+    <div class="cssload-speeding-wheel"></div>
+  </div>
+
 
   @for ( review of reviews_list; track review.title ) {
 
