@@ -66,7 +66,7 @@
 }
 
 .reviewBox {
-  height:800px; /* or whatever width you want. */
-  max-height:800px; /* or whatever width you want. */
+  height:850px; /* or whatever width you want. */
+  max-height:850px; /* or whatever width you want. */
   display: inline-block;
 }
