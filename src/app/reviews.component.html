@@ -30,11 +30,10 @@
           <div class="card-body">
             <div class="row">
               <div class ="col-sm-6">
-                The body text is:
-                {{ review.body }} <br>
+                {{ review.body.substring(0,300) + '...' }} <br>
               </div>
               <div class ="col-sm-6 text-end">
-                <img src='{{ baseBlobUrl + review.filePath }}' width='100px'/>
+                <img src='{{ baseBlobUrl + review.filePath }}' height="100px"/>
               </div>
             </div>
           </div>
