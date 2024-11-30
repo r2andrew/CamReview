@@ -4,14 +4,15 @@ import { NgForOf, NgClass, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
 import { WebService } from './web.service';
-
+import { ModalComponent } from './modal.component';
+import {ModalService} from './modal.service';
 
 
 @Component({
   selector: 'reviews',
   standalone: true,
-  imports: [RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule],
-  providers: [WebService],
+  imports: [RouterModule, NgForOf, NgClass, NgIf, ReactiveFormsModule, ModalComponent],
+  providers: [WebService, ModalService],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
 })
@@ -22,11 +23,14 @@ export class ReviewsComponent {
   file: File | null = null;
   totalPages: number = 1;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
+  reviews_loaded: boolean = false;
+  new_review_loading: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private webService: WebService) {}
+              private webService: WebService,
+              public modalService: ModalService) {}
 
   // pull file on selection
   onChange(event: any) {
@@ -41,8 +45,17 @@ export class ReviewsComponent {
       this.reviewForm.value,
       this.file)
       .subscribe( (response) => {
-        console.log(response)
+        this.modalService.close();
         this.reviewForm.reset();
+        this.new_review_loading = true;
+        this.webService.getReviews(this.page)
+          .subscribe((response) => {
+            this.reviews_list = response['reviews'];
+            this.totalPages = response['totalPages'];
+            this.processIfEdited();
+            this.reviews_loaded = true;
+            this.new_review_loading = false;
+          })
       });
   }
 
@@ -84,7 +97,7 @@ export class ReviewsComponent {
         this.reviews_list = response['reviews'];
         this.totalPages = response['totalPages'];
         this.processIfEdited();
-        console.log(this.reviews_list);
+        this.reviews_loaded = true;
       })
 
     this.reviewForm = this.formBuilder.group( {
@@ -98,19 +111,21 @@ export class ReviewsComponent {
   }
   previousPage() {
     if (this.page > 1) {
+      this.reviews_loaded = false
       this.page = this.page - 1
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
         .subscribe((response: any) => {
           this.reviews_list = response['reviews'];
-          this.totalPages = response['totalPages']
+          this.totalPages = response['totalPages'];
           this.processIfEdited()
+          this.reviews_loaded = true;
         })
     }
   }
   nextPage() {
-    // TODO: cant go beyond data
     if (this.page < this.totalPages) {
+      this.reviews_loaded = false
       this.page = this.page + 1
       sessionStorage['page'] = this.page;
       this.webService.getReviews(this.page)
@@ -118,6 +133,7 @@ export class ReviewsComponent {
           this.reviews_list = response['reviews'];
           this.totalPages = response['totalPages']
           this.processIfEdited()
+          this.reviews_loaded = true;
         })
      }
   }

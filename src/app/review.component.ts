@@ -21,6 +21,8 @@ export class ReviewComponent {
   reviews_list: any;
   editForm: any;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
+  review_loaded = false;
+  parsedModifiedTime: string = '';
 
 
   constructor( private route: ActivatedRoute,
@@ -34,6 +36,9 @@ export class ReviewComponent {
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
         this.reviews_list = [response];
+        this.parsedModifiedTime = (new Date(this.reviews_list[0]['modifiedTime'])).toLocaleString()
+        this.review_loaded = true;
+
 
         this.processIfEdited()
         console.log(this.reviews_list)
@@ -70,7 +75,8 @@ export class ReviewComponent {
     this.webService.deleteReview(
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
-        this.router.navigate([''])
+        this.modalService.close();
+        this.router.navigate(['/reviews'])
       });
   }
 
@@ -80,7 +86,14 @@ export class ReviewComponent {
       this.editForm.value)
       .subscribe( (response: any) => {
         this.modalService.close()
-        this.router.navigate([''])
+        this.review_loaded = false;
+        this.webService.getReview(
+          this.route.snapshot.paramMap.get('id'))
+          .subscribe( (response: any) => {
+            this.reviews_list = [response];
+            this.review_loaded = true;
+            this.processIfEdited()
+          });
       });
   }
 }
