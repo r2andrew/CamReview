@@ -1,33 +1,46 @@
-<div class="container" style="margin-top: 70px">
+<div class="container" style="height: 100vh;
+ background-color: whitesmoke; color: #262626">
 
-  <div class="" *ngIf="(!review_loaded)">
+  <div class="" *ngIf="!review_loaded" style="padding-top: 600px;">
     <div class="cssload-speeding-wheel"></div>
   </div>
 
   <ng-container *ngIf="review_loaded">
   @for ( review of reviews_list; track review.title ) {
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="display-1">
-          {{ review.title }}
-          <button class="btn btn-danger me-2" (click)="modalService.open('delete-modal')">Delete</button>
-          <button class="btn btn-danger me-2" (click)="modalService.open('edit-modal')">Edit</button>
+    <div class="row" style="">
+      <div class="col-sm-4 align-self-end" style="margin-top: 100px">
+        <div class="">
+          <h1 style="margin-bottom: 0px !important; font-size: 60px">{{ review.title }}</h1>
         </div>
+      </div>
+      <div class="col-sm-4 align-self-end text-end">
+      <span *ngIf="review.edited" style="margin-left: 20px; font-style: italic" >
+            Edited: {{ parsedModifiedTime }}
+        </span>
+      </div>
+      <div class="col-sm-4 align-self-end text-end" style="margin-top: 40px">
+        <button class="btn btn-danger me-2" (click)="modalService.open('delete-modal')">Delete</button>
+        <button class="btn btn-danger me-2" (click)="modalService.open('edit-modal')">Edit</button>
+      </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 20px; margin-bottom: 20px">
+
+      <div class="col-sm-12">
         <span *ngFor="let star of [].constructor(review.rating)">
           <img src="images/star.png" style="width:30px; height:30px">
         </span>
-        <span *ngIf="review.edited" >
-          Edited: {{ review.modifiedTime }}
-        </span>
       </div>
+
     </div>
+
     <div class="row">
-      <div class="col-sm-6">
-        The body text is:
+      <div class="col-sm-6" style="font-size: 20px">
         {{ review.body }}
       </div>
-      <div class="col sm-6 text-center">
+      <div class="col sm-6 text-end" style="">
         <img src='{{ baseBlobUrl + review.filePath }}' width='400'/>
       </div>
     </div>

@@ -22,6 +22,7 @@ export class ReviewComponent {
   editForm: any;
   baseBlobUrl: string = "https://crstorageaccount46.blob.core.windows.net";
   review_loaded = false;
+  parsedModifiedTime: string = '';
 
 
   constructor( private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class ReviewComponent {
       this.route.snapshot.paramMap.get('id'))
       .subscribe( (response: any) => {
         this.reviews_list = [response];
+        this.parsedModifiedTime = (new Date(this.reviews_list[0]['modifiedTime'])).toLocaleString()
         this.review_loaded = true;
 
 
