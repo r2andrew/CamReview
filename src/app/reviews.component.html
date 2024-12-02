@@ -22,10 +22,13 @@
               <div class ="col-sm-6 text-end fw-semibold">
                 Username: {{ review.username }}
               </div>
-              <div class ="col-sm-6 fst-italic" *ngIf="review.edited" >
-                Edited: {{ review.modifiedTime }}
+              <div class ="col-sm-6 fst-italic" >
+                <span *ngIf="review.edited">Edited: {{ review.modifiedTime }}</span>
               </div>
-            </div>
+              <div class ="col-sm-6 text-end fst-italic" >
+                <span *ngIf="review.autoTranslated">Autotranslated</span>
+              </div>
+              </div>
           </div>
           <div class="card-body">
             <div class="row">

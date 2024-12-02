@@ -13,6 +13,9 @@
         <div class="">
           <h1 style="margin-bottom: 0px !important; font-size: 60px">{{ review.title }}</h1>
         </div>
+        <div class ="col-sm-6 fst-italic fw-bold" style="font-size: 20px" *ngIf="review.autoTranslated">
+          <span>(Autotranslated)</span>
+        </div>
       </div>
       <div class="col-sm-4 align-self-end text-end">
       <span *ngIf="review.edited" style="margin-left: 20px; font-style: italic" >
@@ -28,13 +31,19 @@
 
     <div class="row" style="margin-top: 20px; margin-bottom: 20px">
 
-      <div class="col-sm-12">
+      <div class="col-sm-6">
         <span *ngFor="let star of [].constructor(review.rating)">
           <img src="images/star.png" style="width:30px; height:30px">
         </span>
       </div>
 
-    </div>
+      <div class="col-sm-6 text-end">
+        <span style="font-weight: bold">
+          Written by: {{review.username}}
+        </span>
+      </div>
+
+      </div>
 
     <div class="row">
       <div class="col-sm-6" style="font-size: 20px">
